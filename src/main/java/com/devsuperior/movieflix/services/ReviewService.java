@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.devsuperior.movieflix.dto.NewReviewDTO;
+import com.devsuperior.movieflix.dto.ReviewDTO;
 import com.devsuperior.movieflix.entities.Movie;
 import com.devsuperior.movieflix.entities.Review;
 import com.devsuperior.movieflix.repositories.ReviewRepository;
@@ -19,7 +19,7 @@ public class ReviewService {
 	private AuthService authService;
 	
 	@Transactional
-	public NewReviewDTO insert(NewReviewDTO dto) {
+	public ReviewDTO insert(ReviewDTO dto) {
 		Review obj = new Review();
 		obj.setUser(authService.authenticated());
 		obj.setText(dto.getText());
@@ -27,6 +27,6 @@ public class ReviewService {
 		movie.setId(dto.getMovieId());
 		obj.setMovie(movie);
 		obj = repo.save(obj);
-		return new NewReviewDTO(obj);
+		return new ReviewDTO(obj);
 	}
 }
